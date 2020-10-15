@@ -1,10 +1,9 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-
 const PORT = process.env.PORT || 8080;
-
-const db = require("./models");
+const routesDB = require("./routes/db");
+const routesHTML = require("./routes/html");
 
 const app = express();
 
@@ -15,8 +14,14 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/trainin-to-saiyan", { useNewUrlParser: true });
+//  routes for our app to direct traffic
+app.use("/", routesDB);
+require("./routes/html")(app);
 
-app.listen(PORT, () => {
-  console.log(`App running on port ${PORT}!`);
-});
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/trainin-to-saiyan", { useNewUrlParser: true })
+  .then(function () {
+    app.listen(PORT, () => {
+      console.log(`App running on port ${PORT}!`);
+    });
+  });
+

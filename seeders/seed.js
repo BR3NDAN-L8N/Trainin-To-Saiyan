@@ -1,12 +1,12 @@
 let mongoose = require("mongoose");
 let db = require("../models");
 
-mongoose.connect("mongodb://localhost/workouts", {
+mongoose.connect("mongodb://localhost/trainin-to-saiyan", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
 
-let workoutSeed = [
+let workoutsSeed = [
   {
     day: new Date().setDate(new Date().getDate()-10),
     exercises: [
@@ -84,7 +84,7 @@ let workoutSeed = [
     ]
   },
   {
-    day: new Date.setDate(new Date().getDate() - 4),
+    day: new Date().setDate(new Date().getDate()-4),
     exercises: [
       {
         type: "resistance",
@@ -97,7 +97,7 @@ let workoutSeed = [
     ]
   },
   {
-    day: new Date.setDate(new Date().getDate() - 3),
+    day: new Date().setDate(new Date().getDate()-3),
     exercises: [
       {
         type: "resistance",
@@ -110,7 +110,7 @@ let workoutSeed = [
     ]
   },
   {
-    day: new Date.setDate(new Date().getDate() - 2),
+    day: new Date().setDate(new Date().getDate()-2),
     exercises: [
       {
         type: "resistance",
@@ -124,8 +124,8 @@ let workoutSeed = [
   }
 ];
 
-db.Workout.deleteMany({})
-  .then(() => db.Workout.collection.insertMany(workoutSeed))
+db.Workouts.deleteMany({})
+  .then(() => db.Workouts.collection.insertMany(workoutsSeed))
   .then(data => {
     console.log(data.result.n + " records inserted!");
     process.exit(0);
