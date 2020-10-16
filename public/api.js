@@ -2,16 +2,16 @@ const API = {
     async getLastWorkout() {
         let res;
         try {
-            res = await fetch("/api/workouts");
+            res = await fetch("/api/workouts");  //  fetch here is a GET and returns a promise.
+            console.log(res);
         } catch (err) {
             console.log(err)
         }
-        const json = await res.json();
+        const json = await res.json();  //  converting res into json so we can access the body
 
         return json[json.length - 1];
     },
     async addExercise(data) {
-        const id = location.search.split("=")[1];
 
         const res = await fetch("/api/workouts/" + id, {
             method: "PUT",

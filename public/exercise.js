@@ -137,6 +137,7 @@ function clearInputs() {
   weightInput.value = "";
 }
 
+// if workout type "cardio" or "resistance" is selected from the drop-down menu
 if (workoutTypeSelect) {
   workoutTypeSelect.addEventListener("change", handleWorkoutTypeChange);
 }
