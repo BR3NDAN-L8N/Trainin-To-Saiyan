@@ -55,11 +55,11 @@ module.exports = function (app) {
     app.get("/api/workouts", (req, res) => {
         db.Workouts.find({}, (error, data) => {  //  find all workouts
             if (error) {
-              res.send(error);
+                res.send(error);
             } else {
-              res.json(data);  //  send all workouts back
+                res.json(data);  //  send all workouts back
             }
-          });
+        });
     });
 
     app.post("/api/workouts", ({ body }, res) => {
@@ -67,9 +67,23 @@ module.exports = function (app) {
         res.send("api/workouts POST was run");
     });
 
-    app.put("/api/workouts", ({ body }, res) => {
+    app.put("/api/workouts/:id", async (req, res) => {
 
-        res.send("api/workouts PUT was run");
+        id = req.params.id;
+        // data = req.body;
+        // newWorkout = await db.Workout.create(data);
+
+
+        db.Workouts.findByIdAndUpdate(id, exercises.push(req.body), { new: true })
+            .then(dbUser => {
+                res.json(dbUser);
+            })
+            .catch(err => {
+                res.json(err);
+            });
     });
 
 };
+
+
+// Workouts.findById(id, function (err, workouts) {});

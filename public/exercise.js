@@ -32,6 +32,7 @@ async function initExercise() {
 
 initExercise();
 
+//  change display of text fields for workout data
 function handleWorkoutTypeChange(event) {
   workoutType = event.target.value;
 
@@ -95,6 +96,10 @@ function validateInputs() {
   }
 }
 
+//  1. grab data entered for workout of type "cardio" or "resistance"
+//  2. add exercise to database
+//  3. clear input fields
+//  4. display "toast" message
 async function handleFormSubmit(event) {
   event.preventDefault();
 
@@ -114,7 +119,10 @@ async function handleFormSubmit(event) {
     workoutData.duration = Number(resistanceDurationInput.value.trim());
   }
 
-  await API.addExercise(workoutData);
+  await API.addExercise(workoutData)
+    .then((res) => {
+        console.log(res);
+    });
   clearInputs();
   toast.classList.add("success");
 }
@@ -139,8 +147,13 @@ function clearInputs() {
 
 // if workout type "cardio" or "resistance" is selected from the drop-down menu
 if (workoutTypeSelect) {
-  workoutTypeSelect.addEventListener("change", handleWorkoutTypeChange);
+  workoutTypeSelect.addEventListener("change", handleWorkoutTypeChange);  //  change the display of text fields for workout data
 }
+
+//  
+//  CLICK EVENTS
+//
+
 if (completeButton) {
   completeButton.addEventListener("click", function (event) {
     shouldNavigateAway = true;
