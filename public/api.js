@@ -3,13 +3,12 @@ const API = {
         let res;
         try {
             res = await fetch("/api/workouts");  //  fetch here is a GET and returns a promise.
-            console.log(res);
         } catch (err) {
             console.log(err)
         }
         const json = await res.json();  //  converting res into json so we can access the body
 
-        return json[json.length - 1];
+        return json[json.length - 1];  //  gets the last exercise in the response from DB
     },
     
     async addExercise(data) {
@@ -32,7 +31,6 @@ const API = {
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" }
         });
-        console.log(res);
         const json = await res.json();
 
         return json;

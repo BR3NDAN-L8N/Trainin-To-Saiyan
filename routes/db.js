@@ -65,6 +65,7 @@ module.exports = function (app) {
         res.send("api/workouts POST was run");
     });
 
+    //  add an exercise to current workout
     app.put("/api/workouts/:id", (req, res) => {
 
         db.Workouts.findByIdAndUpdate(req.params.id, { $push: { exercises: req.body } }, { new: true })
@@ -76,6 +77,17 @@ module.exports = function (app) {
             });
 
 
+    });
+
+    //  GET workouts from database
+    app.get("/api/workouts/range", (req, res) => {
+        db.Workouts.find({}, (error, data) => {  //  find all workouts
+            if (error) {
+                res.send(error);
+            } else {
+                res.json(data);  //  send all workouts back
+            }
+        });
     });
 
 };
