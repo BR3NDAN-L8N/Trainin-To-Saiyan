@@ -61,8 +61,12 @@ module.exports = function (app) {
         });
     });
 
-    app.post("/api/workouts", ({ body }, res) => {
-        res.send("api/workouts POST was run");
+    // Create new Workout
+    app.post("/api/workouts", (req, res) => {
+        db.Workouts.create(req.body)
+            .then(newWorkout => {
+                res.json(newWorkout);
+            });
     });
 
     //  add an exercise to current workout
