@@ -1,6 +1,5 @@
 const db = require("../models");
 const express = require("express");
-const router = express.Router();
 
 // assigning functions to router
 // router.get("/api/workouts", (req, res) => {
@@ -48,7 +47,7 @@ const router = express.Router();
 // ***************************
 // Your created ones below here
 
-// export router with new functions
+// export app with new functions
 module.exports = function (app) {
 
     //  GET workouts from database
@@ -63,24 +62,20 @@ module.exports = function (app) {
     });
 
     app.post("/api/workouts", ({ body }, res) => {
-
         res.send("api/workouts POST was run");
     });
 
-    app.put("/api/workouts/:id", async (req, res) => {
+    app.put("/api/workouts/:id", (req, res) => {
 
-        id = req.params.id;
-        // data = req.body;
-        // newWorkout = await db.Workout.create(data);
-
-
-        db.Workouts.findByIdAndUpdate(id, exercises.push(req.body), { new: true })
-            .then(dbUser => {
-                res.json(dbUser);
+        db.Workouts.findByIdAndUpdate(req.params.id, { $push: { exercises: req.body } }, { new: true })
+            .then(exercises => {
+                res.json(exercises);
             })
             .catch(err => {
                 res.json(err);
             });
+
+
     });
 
 };
